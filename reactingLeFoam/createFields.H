@@ -92,5 +92,69 @@ forAll(Y, i)
 }
 fields.add(thermo.he());
 
+
+//- ADDED CODE
+
+volVectorField heatFluxCorr
+(
+    IOobject
+    (
+        "heatFluxCorr",
+        runTime.timeName(),
+        mesh,
+        IOobject::NO_READ,
+        IOobject::NO_WRITE
+    ),
+    mesh,
+    dimensionedVector("heatFluxCorr", thermo.he().dimensions()/dimLength, Foam::vector(0,0,0))
+);
+
+volVectorField gradY
+(
+    IOobject
+    (
+        "gradY",
+        runTime.timeName(),
+        mesh,
+        IOobject::NO_READ,
+        IOobject::NO_WRITE
+    ),
+    mesh,
+    dimensionedVector("gradY", dimless/dimLength, Foam::vector(0,0,0))
+);
+
+
+dimensionedScalar Hs("Hs",thermo.he().dimensions(),0.0);
+label Ysize = Y.size();
+
+scalarList LewisNumber(Ysize,1.0);
+
+Info<< "\nReading Lewis numbers\n" << endl;
+IOdictionary chemistryProperties
+(
+    IOobject
+    (
+        "chemistryProperties",    
+        runTime.constant(),     
+        mesh,                   
+        IOobject::MUST_READ,    
+        IOobject::NO_WRITE      
+    )
+);
+
+
+dictionary LewisNumberDict(chemistryProperties.subDict("LewisNumbers"));
+
+
+for (label i=0; i<Ysize; i++)
+{
+    if (LewisNumberDict.found(Y[i].member()))
+    {
+        LewisNumber[i] = readScalar(LewisNumberDict.lookup(Y[i].member()));
+    }
+    Info<<"Lewis number of specie "<<Y[i].name()<<" is: "<<LewisNumber[i]<<endl;
+}
+
+
 #include "createMRF.H"
 #include "createFvOptions.H"
