@@ -2,7 +2,7 @@
   =========                 |
   \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
    \\    /   O peration     | Website:  https://openfoam.org
-    \\  /    A nd           | Copyright (C) 2013-2020 OpenFOAM Foundation
+    \\  /    A nd           | Copyright (C) 2013-2019 OpenFOAM Foundation
      \\/     M anipulation  |
 -------------------------------------------------------------------------------
 License
@@ -31,7 +31,7 @@ License
     const dictionary& pimpleDict = pimple.dict();
 
     // Maximum flow Courant number
-    scalar maxCo(pimpleDict.lookup<scalar>("maxCo"));
+    scalar maxCo(readScalar(pimpleDict.lookup("maxCo")));
 
     // Maximum time scale
     scalar maxDeltaT(pimpleDict.lookupOrDefault<scalar>("maxDeltaT", great));
@@ -120,7 +120,7 @@ License
                 if (Yref.found(Yi.name()))
                 {
                     foundY = true;
-                    scalar Yrefi = Yref.lookup<scalar>(Yi.name());
+                    scalar Yrefi = readScalar(Yref.lookup(Yi.name()));
 
                     rDeltaTY.field() = max
                     (
@@ -151,7 +151,7 @@ License
         }
     }
 
-    // Update the boundary values of the reciprocal time-step
+    // Update tho boundary values of the reciprocal time-step
     rDeltaT.correctBoundaryConditions();
 
     // Spatially smooth the time scale field
@@ -176,7 +176,7 @@ License
         );
     }
 
-    // Update the boundary values of the reciprocal time-step
+    // Update tho boundary values of the reciprocal time-step
     rDeltaT.correctBoundaryConditions();
 
     Info<< "    Overall     = "

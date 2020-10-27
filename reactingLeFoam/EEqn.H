@@ -15,7 +15,7 @@
             )
           : -dpdt
         )
-      + thermophysicalTransport->divq(he)
+      - fvm::laplacian(turbulence->alphaEff(), he)
      ==
         reaction->Qdot()
       + fvOptions(rho, he)
