@@ -9,7 +9,7 @@ An OpenFOAM reacting solver which takes the Lewis number of given species as use
 
 ![equation](https://latex.codecogs.com/png.latex?%5Csmall%20F_h%20%3D%20mh%20-%20%5Cfrac%7B%5Clambda%7D%7Bc_p%7D%5Cfrac%7B%5Cpartial%20h%7D%7B%5Cpartial%20s%7D%20-%20%5Cfrac%7B%5Clambda%7D%7Bc_p%7D%5Csum_%7Bi%3D1%7D%5E%7BN_s%7D%20%5Cleft%20%28%5Cfrac%7B1%7D%7BLe_i%7D%20-%201%20%5Cright%20%29%20h_i%20%5Cfrac%7B%5Cpartial%20Y_i%7D%7B%5Cpartial%20s%7D)
 
-where unity Lewis number assumption gives us the formulation exists within OpenFOAM, where species mass fraction flux is lambda/cp and right hand side term in the enthalpy equation does not exist.
+where unity Lewis number assumption gives us the formulation exists within OpenFOAM, where species mass fraction flux is λ/c<sub>p</sub> and right hand side term in the enthalpy equation does not exist.
 
 * This solver introduces this formulation back into species mass fraction and enthalpy equations. The Lewis number of a given specie is defined by the user. Undefined species automatically gets unity Lewis number.
 
