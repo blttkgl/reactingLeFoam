@@ -23,7 +23,7 @@ tmp<fv::convectionScheme<scalar>> mvConvection
             (
                 fvm::ddt(rho, Yi)
               + mvConvection->fvmDiv(phi, Yi)
-              - fvm::laplacian(turbulence->alphaEff()/LewisNumber[i], Yi)
+              - fvm::laplacian(thermophysicalTransport->alphaEff()/LewisNumber[i], Yi)
              ==
                 reaction->R(Yi)
               + fvOptions(rho, Yi)

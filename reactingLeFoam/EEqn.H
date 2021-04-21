@@ -34,8 +34,8 @@
             )
           : -dpdt
         )
-      - fvm::laplacian(turbulence->alphaEff(), he)
-      - fvc::div(turbulence->alphaEff()*heatFluxCorr,"div(heatFluxCorr)")  // New term
+      + thermophysicalTransport->divq(he)
+      - fvc::div(thermophysicalTransport->alphaEff()*heatFluxCorr,"div(heatFluxCorr)")  // New term
      ==
         reaction->Qdot()
       + fvOptions(rho, he)

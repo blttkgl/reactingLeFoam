@@ -2,7 +2,7 @@
   =========                 |
   \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
    \\    /   O peration     | Website:  https://openfoam.org
-    \\  /    A nd           | Copyright (C) 2011-2018 OpenFOAM Foundation
+    \\  /    A nd           | Copyright (C) 2011-2021 OpenFOAM Foundation
      \\/     M anipulation  |
 -------------------------------------------------------------------------------
 License
@@ -24,15 +24,17 @@ License
     along with OpenFOAM.  If not, see <http://www.gnu.org/licenses/>.
 
 Application
-    reactingFoam
+    reactingLeFoam
 
 Description
-    Solver for combustion with chemical reactions.
+    Solver for combustion with chemical reactions that reads the Lewis 
+    number of species from a user-given dict.
 
 \*---------------------------------------------------------------------------*/
 
 #include "fvCFD.H"
-#include "turbulentFluidThermoModel.H"
+#include "fluidThermoMomentumTransportModel.H"
+#include "psiReactionThermophysicalTransportModel.H"
 #include "psiReactionThermo.H"
 #include "CombustionModel.H"
 #include "multivariateScheme.H"
@@ -69,7 +71,7 @@ int main(int argc, char *argv[])
 
     Info<< "\nStarting time loop\n" << endl;
 
-    while (runTime.run())
+    while (pimple.run(runTime))
     {
         #include "readTimeControls.H"
 
@@ -98,19 +100,13 @@ int main(int argc, char *argv[])
             // --- Pressure corrector loop
             while (pimple.correct())
             {
-                if (pimple.consistent())
-                {
-                    #include "pcEqn.H"
-                }
-                else
-                {
-                    #include "pEqn.H"
-                }
+                #include "pEqn.H"
             }
 
             if (pimple.turbCorr())
             {
                 turbulence->correct();
+                thermophysicalTransport->correct();
             }
         }
 
