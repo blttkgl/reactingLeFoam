@@ -9,25 +9,38 @@ FoamFile
 {
     version     2.0;
     format      ascii;
-    class       dictionary;
-    location    "constant";
-    object      thermophysicalProperties;
+    class       volScalarField;
+    location    "0";
+    object      Qdot;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-thermoType
+dimensions      [1 -1 -3 0 0 0 0];
+
+internalField   uniform 0;
+
+boundaryField
 {
-    type            hePsiThermo;
-    mixture         multiComponentMixture;
-    transport       sutherland;
-    thermo          janaf;
-    energy          sensibleEnthalpy;
-    equationOfState perfectGas;
-    specie          specie;
+    fuel
+    {
+        type            calculated;
+        value           uniform 0;
+    }
+    air
+    {
+        type            calculated;
+        value           uniform 0;
+    }
+    outlet
+    {
+        type            calculated;
+        value           uniform 0;
+    }
+    frontAndBack
+    {
+        type            empty;
+    }
 }
 
-inertSpecie N2;
-
-#include "thermo.compressibleGasGRI"
 
 // ************************************************************************* //

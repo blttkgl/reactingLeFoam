@@ -10,24 +10,20 @@ FoamFile
     version     2.0;
     format      ascii;
     class       dictionary;
-    location    "constant";
-    object      thermophysicalProperties;
+    location    "0/uniform";
+    object      time;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-thermoType
-{
-    type            hePsiThermo;
-    mixture         multiComponentMixture;
-    transport       sutherland;
-    thermo          janaf;
-    energy          sensibleEnthalpy;
-    equationOfState perfectGas;
-    specie          specie;
-}
+value           0;
 
-inertSpecie N2;
+name            "0";
 
-#include "thermo.compressibleGasGRI"
+index           0;
+
+deltaT          1e-06;
+
+deltaT0         1e-06;
+
 
 // ************************************************************************* //
