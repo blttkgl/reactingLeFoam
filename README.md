@@ -11,6 +11,13 @@ An OpenFOAM reacting solver which takes the Lewis number of given species as use
 
 where unity Lewis number assumption gives us the formulation exists within OpenFOAM, where species mass fraction flux is λ/c<sub>p</sub> and right hand side term in the enthalpy equation does not exist.
 
+
+<p align="center">
+    <img src="h2.png" alt="drawing" width="600"/>
+    <br>
+    <em>Figure: Validation of reactingLeFoam compared to standard reactingFoam, and Cantera results for a CH4/air flame at 1 atm.</em>
+</p>
+
 * This solver introduces this formulation back into species mass fraction and enthalpy equations. The Lewis number of a given specie is defined by the user. Undefined species automatically gets unity Lewis number.
 
 * Note that current OpenFOAM-dev branch (as of October 2020) includes a file structure which supports a multi-component mixture model, so this solver may be completely obsolete by the next stable release of OpenFOAM.
