@@ -1,5 +1,5 @@
 # reactingLeFoam
-![OpenFOAM 7](https://img.shields.io/badge/OpenFOAM-7-brightgreen.svg)
+![OpenFOAM 8](https://img.shields.io/badge/OpenFOAM-8-brightgreen.svg)
 
 An OpenFOAM reacting solver which takes the Lewis number of given species as user input. Developed by Bulut Tekgül & Heikki Kahila, Aalto University, Finland.
 
